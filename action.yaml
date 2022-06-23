@@ -1,0 +1,48 @@
+name: 'trickest-action'
+description: Execute Workflows on Trickest Platform
+author: trickest
+inputs:
+  space:
+    description: Space where the workflow will be executed
+    require: true
+  project:
+    description: Project where workflow will be executed, not required.
+    require: false
+  workflow:
+    description: Workflow name to be executed. If not present, it will be copied from the store.
+    required: false
+  config_path:
+    description: Configuration for the workflow. Example can be found at config.yaml.
+    require: false
+  workflow_new_name:
+    description: Executes a workflow from store and creates new one with data provided.
+    require: false
+  output_dir:
+    description: Output directory for output files and folders
+    require: false
+  output_all:
+    description: Download all of the outputs
+    require: false
+  show_params:
+    description: Show parameters in the workflow tree
+    require: false
+  watch:
+    description: Watch the execution in real time
+    require: false
+  output:
+    description: Download specific node's outputs
+    require: false
+  create_structure:
+    description: Create spaces and projects if they don't exist
+    require: false
+  max_machines:
+    description: Use maximum number of machines for workflow execution
+    require: false
+
+branding:
+  color: 'blue'
+  icon: 'upload-cloud'
+  
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
