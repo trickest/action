@@ -1,0 +1,36 @@
+name: Trickest Client
+
+on:
+  push:
+
+jobs:         
+  trickest-execute-workflow:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check Out
+      uses: actions/checkout@main
+
+    - name: Trickest Execute
+      id: trickest
+      uses: ./
+      env:
+        TRICKEST_TOKEN: "${{ secrets.TRICKEST_TOKEN }}"
+      with:
+        workflow: "Simple Visual Recon"
+        space: "Action-CI"
+        create_structure: true
+        project: "v1.0"
+        watch: true
+        workflow_new_name: "${{ github.sha }}"
+        output_dir: reports
+        #output_all: true
+        output: "zip-to-out"
+        #show_params: true
+        config_path: config.yaml
+
+    - name: Workflow artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: workflow-results
+        path: reports/*/zip-to-out/*
