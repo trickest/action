@@ -9,12 +9,14 @@ LABEL "com.github.actions.color"="purple"
 
 WORKDIR /tmp
 
-RUN wget https://github.com/trickest/trickest-cli/releases/download/v1.0.3/trickest-cli-1.0.3-linux-amd64.zip
+RUN wget https://github.com/trickest/trickest-cli/releases/download/v1.0.5/trickest-cli-1.0.5-linux-amd64.zip
 
 # Unzip
-RUN unzip trickest-cli-1.0.3-linux-amd64.zip
+RUN unzip trickest-cli-1.0.5-linux-amd64.zip
 
-RUN mv trickest-cli-1.0.3-linux-amd64 trickest
+RUN ls
+
+RUN mv trickest-cli-linux-amd64 trickest
 
 # Make binary executable
 RUN chmod +x trickest
