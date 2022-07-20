@@ -18,7 +18,7 @@ jobs:
         TRICKEST_TOKEN: "${{ secrets.TRICKEST_TOKEN }}"
       with:
         workflow: "Simple Visual Recon"
-        space: "Action-CI"
+        space: "CI-CD"
         create_structure: true
         project: "v1.0"
         watch: true

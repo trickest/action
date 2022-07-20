@@ -14,9 +14,13 @@ RUN wget https://github.com/trickest/trickest-cli/releases/download/v1.0.5/trick
 # Unzip
 RUN unzip trickest-cli-1.0.5-linux-amd64.zip
 
-RUN ls
-
 RUN mv trickest-cli-linux-amd64 trickest
+
+# Make binary executable
+RUN chmod +x trickest
+
+# Move binary to path
+RUN mv trickest /usr/bin/trickest
 
 # Make binary executable
 RUN chmod +x trickest
