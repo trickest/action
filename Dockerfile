@@ -22,12 +22,6 @@ RUN chmod +x trickest
 # Move binary to path
 RUN mv trickest /usr/bin/trickest
 
-# Make binary executable
-RUN chmod +x trickest
-
-# Move binary to path
-RUN mv trickest /usr/bin/trickest
-
 WORKDIR /
 
 COPY entrypoint.sh .
