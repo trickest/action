@@ -1,4 +1,4 @@
-<h1 align="center">Trickest Action <a href="https://twitter.com/intent/tweet?text=GitHub%20Action%20for%20Trickest%20Workflows%20https%3A%2F%2Fgithub.com%2Ftrickest%2Faction%20%23infosec%20%23recon%20%23bugbountytips%20%23redteam"><img src="https://img.shields.io/badge/Tweet--lightgrey?logo=twitter&style=social" alt="Tweet" height="20"/></a></h1>
+<h1 align="center">Trickest Action <a href="https://twitter.com/intent/tweet?text=GitHub%20Action%20for%20Trickest%20Workflows%20%40trick3st%0Ahttps%3A%2F%2Fgithub.com%2Ftrickest%2Faction&hashtags=infosec,recon,bugbountytips,redteam"><img src="https://img.shields.io/badge/Tweet--lightgrey?logo=twitter&style=social" alt="Tweet" height="20"/></a></h1>
 <h3 align="center">GitHub Action for Trickest Workflows
 </h3>
 
