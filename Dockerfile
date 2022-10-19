@@ -12,7 +12,7 @@ WORKDIR /tmp
 RUN wget https://github.com/trickest/trickest-cli/releases/download/v1.1.2/trickest-cli-1.1.2-linux-amd64.zip
 
 # Unzip
-RUN unzip trickest-cli-1.1.0-linux-amd64.zip
+RUN unzip trickest-cli-1.1.2-linux-amd64.zip
 
 RUN mv trickest-cli-linux-amd64 trickest
 
