@@ -1,33 +1,20 @@
+FROM --platform=linux/amd64 golang:1.19-alpine as build
+
+RUN go install github.com/trickest/trickest-cli@latest
+
+
 FROM alpine:3.16.0
 
-RUN apk add bash unzip
+RUN apk add bash curl jq
 
 LABEL "com.github.actions.name"="Trickest Execute"
 LABEL "com.github.actions.description"="Execute Workflows on Trickest Platform"
 LABEL "com.github.actions.icon"="upload-cloud"
 LABEL "com.github.actions.color"="purple"
 
-WORKDIR /tmp
-
-RUN wget https://github.com/trickest/trickest-cli/releases/download/v1.1.2/trickest-cli-1.1.2-linux-amd64.zip
-
-# Unzip
-RUN unzip trickest-cli-1.1.2-linux-amd64.zip
-
-RUN mv trickest-cli-1.1.2-linux-amd64 trickest
-
-# Make binary executable
-RUN chmod +x trickest
-
-# Move binary to path
-RUN mv trickest /usr/bin/trickest
-
-WORKDIR /
-
-COPY entrypoint.sh .
+COPY --from=build /go/bin/trickest-cli /usr/bin/trickest
 
 ADD entrypoint.sh /entrypoint.sh
-
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
