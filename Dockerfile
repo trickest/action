@@ -13,7 +13,7 @@ RUN latest_tag=$(curl -s https://api.github.com/repos/trickest/trickest-cli/rele
     latest_version=${latest_tag:1} && \
     wget "https://github.com/trickest/trickest-cli/releases/download/$latest_tag/trickest-cli-$latest_version-linux-amd64.tar.gz" && \
     tar -xzvf "trickest-cli-$latest_version-linux-amd64.tar.gz" && \
-    RUN mv trickest-cli /usr/bin/trickest
+    mv trickest-cli /usr/bin/trickest
 
 WORKDIR /
 
