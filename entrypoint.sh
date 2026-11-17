@@ -4,7 +4,7 @@
 
 set -e
 
-cd $GITHUB_WORKSPACE 
+cd "$GITHUB_WORKSPACE"
 
 # Variables
 
@@ -26,15 +26,13 @@ max_machines=$INPUT_MAX_MACHINES
 function create_structure() {
     if [[ $project ]] 
     then
-                CREATE_PROJECT="echo \"Y\"| trickest create --space \"$space\" --project \"$project\""
-                eval $CREATE_PROJECT
-                PROJECT_CMD="--project \"$project\""
-                SPACE_CMD="--space \"$space\""
+                echo "Y" | trickest create --space "$space" --project "$project"
+                PROJECT_CMD=(--project "$project")
+                SPACE_CMD=(--space "$space")
     else
-                CREATE_SPACE="echo \"Y\" | trickest create --space \"$space\""
-                eval $CREATE_SPACE
-                PROJECT_CMD=""
-                SPACE_CMD="--space \"$space\""
+                echo "Y" | trickest create --space "$space"
+                PROJECT_CMD=()
+                SPACE_CMD=(--space "$space")
     fi
 }
 
@@ -45,74 +43,74 @@ if [[ $create_structure ]]
     else
         if [[ $project ]] 
         then
-            PROJECT_CMD="--project \"$project\""
+            PROJECT_CMD=(--project "$project")
         fi
-            SPACE_CMD="--space \"$space\""
+            SPACE_CMD=(--space "$space")
 fi
 
 
 # Check if config file exist
 function check_config_file_exists() {
-    if [ ! -f $1 ]; then
-        CONFIG_CMD=""
+    if [ ! -f "$1" ]; then
+        CONFIG_CMD=()
     else 
-        CONFIG_CMD="--config $config_path"
+        CONFIG_CMD=(--config "$config_path")
     fi
 }
 
 # Check if execution should be watched
 function check_watch() {
-    if [ $watch ]; then
-        WATCH_CMD="--watch"
+    if [ "$watch" ]; then
+        WATCH_CMD=(--watch)
     else
-        WATCH_CMD=""
+        WATCH_CMD=()
     fi
 }
 
 # Check if --output-all is true
 function check_output_all() {
-    if [ $output_all ]; then
-        OUTPUT_ALL="--output-all"
+    if [ "$output_all" ]; then
+        OUTPUT_ALL=(--output-all)
     else
-        OUTPUT_ALL=""
+        OUTPUT_ALL=()
     fi
 }
 
 
 # Set output dir
 function check_output_dir() {
-    if [ $output_dir ]; then
-        mkdir -p $output_dir
-        OUTPUT_DIR="--output-dir $output_dir"
+    if [ "$output_dir" ]; then
+        mkdir -p "$output_dir"
+        OUTPUT_DIR=(--output-dir "$output_dir")
     else
-        OUTPUT_DIR=""
+        OUTPUT_DIR=()
     fi
 }
 
 # Set output nodes
 function check_output() {
-    if [ $output ]; then
-        OUTPUT_NODES="--output $output"
+    if [ "$output" ]; then
+        OUTPUT_NODES=(--output "$output")
     else
-        OUTPUT_NODES=""
+        OUTPUT_NODES=()
     fi
 }
 
 # Set show params
 function show_params() {
-    if [ $show_params ]; then
-        SHOW_PARAMS_CMD="--show-params"
+    if [ "$show_params" ]; then
+        SHOW_PARAMS_CMD=(--show-params)
     else
-        SHOW_PARAMS_CMD=""
+        SHOW_PARAMS_CMD=()
     fi
 }
 
 # Set max_machines
 function max_machines() {
-    if [ $max_machines ]; then
-        MAX_MACHINES_CMD="--max"
+    if [ "$max_machines" ]; then
+        MAX_MACHINES_CMD=(--max)
     else
-        MAX_MACHINES_CMD=""
+        MAX_MACHINES_CMD=()
     fi
 }
 
@@ -122,7 +120,7 @@ function check_workflow() {
         echo "Workflow flag missing. You can check out the https://trickest.io/dashboard/store?type=workflows to execute workflow directly from the Store"
         exit 1
     else
-        WORKFLOW_CMD="--workflow \"$workflow\""
+        WORKFLOW_CMD=(--workflow "$workflow")
     fi
 
 }
@@ -130,9 +128,9 @@ function check_workflow() {
 # Check if new name should be created 
 function check_set_name() {
     if [[ $workflow_new_name ]]; then
-        WORKFLOW_NAME_CMD="--set-name \"$workflow_new_name\""
+        WORKFLOW_NAME_CMD=(--set-name "$workflow_new_name")
     else
-        WORKFLOW_NAME_CMD=""
+        WORKFLOW_NAME_CMD=()
     fi
 
 }
@@ -162,11 +160,11 @@ function execute_workflow() {
             # --max-machines
             max_machines
             # Create Command
-            TRICKEST_CMD="trickest execute --ci $PROJECT_CMD $SPACE_CMD $WORKFLOW_CMD $WORKFLOW_NAME_CMD $CONFIG_CMD $WATCH_CMD $OUTPUT_DIR $OUTPUT_ALL $OUTPUT_NODES $SHOW_PARAMS_CMD $MAX_MACHINES_CMD"
+            TRICKEST_CMD=(trickest execute --ci "${PROJECT_CMD[@]}" "${SPACE_CMD[@]}" "${WORKFLOW_CMD[@]}" "${WORKFLOW_NAME_CMD[@]}" "${CONFIG_CMD[@]}" "${WATCH_CMD[@]}" "${OUTPUT_DIR[@]}" "${OUTPUT_ALL[@]}" "${OUTPUT_NODES[@]}" "${SHOW_PARAMS_CMD[@]}" "${MAX_MACHINES_CMD[@]}")
             # Print Command
-            echo "Command: $TRICKEST_CMD"
+            echo "Command: ${TRICKEST_CMD[*]}"
             # Execute
-            eval $TRICKEST_CMD
+            "${TRICKEST_CMD[@]}"
 }
 
 execute_workflow
